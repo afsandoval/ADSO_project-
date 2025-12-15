@@ -55,6 +55,14 @@
         <!-- Menú de navegación -->
         <nav class="sidebar-nav">
             <ul class="nav flex-column">
+
+                <li class="nav-item">
+                    <a href="{% url 'usuarios:perfil' %}" class="nav-link">
+                        <i class="bi bi-person-circle"></i>
+                        <span>Mi Perfil</span>
+                    </a>
+                </li>
+                
                 <li class="nav-item">
                     <a href="{% url 'core:dashboard' %}" class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
                         <i class="bi bi-speedometer2"></i>
@@ -63,39 +71,9 @@
                 </li>
                 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="bi bi-calendar3"></i>
-                        <span>Calendario</span>
-                    </a>
-                </li>
-                
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="bi bi-inbox-fill"></i>
-                        <span>Mensajes</span>
-                        <span class="badge bg-danger ms-auto">7</span>
-                    </a>
-                </li>
-                
-                <li class="nav-item">
                     <a href="{% url 'usuarios:lista_usuarios' %}" class="nav-link {% if request.resolver_match.url_name == 'lista_usuarios' %}active{% endif %}">
                         <i class="bi bi-people"></i>
                         <span>Usuarios</span>
-                    </a>
-                </li>
-                
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="bi bi-list-check"></i>
-                        <span>Tareas</span>
-                        <span class="badge bg-success ms-auto">4</span>
-                    </a>
-                </li>
-                
-                <li class="nav-item">
-                    <a href="{% url 'usuarios:perfil' %}" class="nav-link">
-                        <i class="bi bi-person-circle"></i>
-                        <span>Mi Perfil</span>
                     </a>
                 </li>
                 
@@ -133,13 +111,6 @@
                 <!-- Configuración -->
                 <li class="nav-header">
                     <span>CONFIGURACIÓN</span>
-                </li>
-                
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="bi bi-gear"></i>
-                        <span>Ajustes</span>
-                    </a>
                 </li>
                 
                 <li class="nav-item">

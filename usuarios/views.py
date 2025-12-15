@@ -18,7 +18,6 @@ def login_view(request):
     """
     Vista para el inicio de sesión de usuarios
     """
-    # Si el usuario ya está autenticado, redirigir al dashboard
     if request.user.is_authenticated:
         return redirect('core:dashboard')
     
@@ -30,20 +29,17 @@ def login_view(request):
             password = form.cleaned_data.get('password')
             remember_me = form.cleaned_data.get('remember_me')
             
-            # Autenticar usuario
             user = authenticate(request, username=username, password=password)
             
             if user is not None:
                 if user.is_active:
                     login(request, user)
                     
-                    # Configurar duración de la sesión
                     if not remember_me:
-                        request.session.set_expiry(0)  # Expira al cerrar navegador
+                        request.session.set_expiry(0)
                     
                     messages.success(request, f'¡Bienvenido {user.get_full_name() or user.username}!')
                     
-                    # Redirigir según el tipo de usuario
                     next_url = request.GET.get('next')
                     if next_url:
                         return redirect(next_url)
@@ -56,16 +52,18 @@ def login_view(request):
             else:
                 messages.error(request, 'Documento o contraseña incorrectos.')
         else:
-            messages.error(request, 'Por favor corrige los errores en el formulario.')
-    else:
-        form = LoginForm()
+            messages.error(request, 'Por favor completa todos los campos correctamente.')
+        
+        # IMPORTANTE: Si llegamos aquí, hay errores
+        # Verificar si la petición vino del modal (tiene la URL de index)
+        referer = request.META.get('HTTP_REFERER', '')
+        if 'auth/login' not in referer:  # Viene del modal en index
+            return redirect('core:index')
     
-    context = {
-        'form': form,
-        'titulo': 'Iniciar Sesión'
-    }
+    # GET request - mostrar formulario normal
+    form = LoginForm()
+    context = {'form': form, 'titulo': 'Iniciar Sesión'}
     return render(request, 'usuarios/login.html', context)
-
 
 @csrf_protect
 def registro_view(request):
@@ -156,7 +154,7 @@ def lista_usuarios_view(request):
         'filtro_activo': filtro_activo,
         'filtro_staff': filtro_staff,
     }
-    return render(request, 'usuarios/panel_admin/lista_usuarios.html', context)
+    return render(request, 'usuarios/lista_usuarios.html', context)
 
 
 @login_required

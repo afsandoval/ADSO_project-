@@ -6,7 +6,9 @@
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">            
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 </head>
 <body>
     <header>
@@ -73,13 +75,9 @@
                         {% else %}
                             <!-- Usuario NO autenticado -->
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'usuarios:login' %}">
+                                <!-- Cambiar el href para que abra el modal -->
+                                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
                                     <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn btn-outline-light ms-2" href="{% url 'usuarios:registro' %}">
-                                    <i class="bi bi-person-plus"></i> Registrarse
                                 </a>
                             </li>
                         {% endif %}

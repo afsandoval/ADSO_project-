@@ -1,3 +1,5 @@
 body {
-    background-color: #5eed76;
+    background: linear-gradient(135deg, #1a5f3d 0%, #2d8659 50%, #1e7e4f 100%);
+    min-height: 100vh;
+    background-attachment: fixed;
 }

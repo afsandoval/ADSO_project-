@@ -1,8 +1,8 @@
 <!-- usuarios/templates/usuarios/panel_admin/lista_usuarios.html -->
-{% extends 'master.html' %}
+{% extends 'core/panel_admin_base.html' %}
 {% load static %}
 
-{% block title %}{{ titulo }}{% endblock %}
+{% block title %}Lista de usuarios{% endblock %}
 
 {% block content %}
 <div class="container-fluid py-4">
@@ -17,7 +17,7 @@
             <a href="{% url 'usuarios:crear_usuario' %}" class="btn btn-primary">
                 <i class="bi bi-person-plus"></i> Nuevo Usuario
             </a>
-            <a href="{% url 'usuarios:dashboard' %}" class="btn btn-outline-secondary">
+            <a href="{% url 'core:dashboard' %}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left"></i> Volver
             </a>
         </div>
@@ -74,7 +74,6 @@
                             <th>Teléfono</th>
                             <th>Fecha Registro</th>
                             <th>Estado</th>
-                            <th>Tipo</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -107,32 +106,31 @@
                                     </span>
                                 {% endif %}
                             </td>
-                            <td>
-                                {% if usuario.is_superuser %}
-                                    <span class="badge bg-danger">Superusuario</span>
-                                {% elif usuario.is_staff %}
-                                    <span class="badge bg-primary">Admin</span>
-                                {% else %}
-                                    <span class="badge bg-secondary">Usuario</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <div class="btn-group" role="group">
-                                    <a href="{% url 'usuarios:editar_usuario' usuario.id %}" 
-                                       class="btn btn-sm btn-outline-primary"
-                                       title="Editar">
-                                        <i class="bi bi-pencil"></i>
-                                    </a>
-                                    {% if not usuario.is_superuser and usuario != request.user %}
-                                    <a href="{% url 'usuarios:eliminar_usuario' usuario.id %}" 
-                                       class="btn btn-sm btn-outline-danger"
-                                       title="Eliminar"
-                                       onclick="return confirm('¿Estás seguro de desactivar este usuario?')">
-                                        <i class="bi bi-trash"></i>
-                                    </a>
-                                    {% endif %}
-                                </div>
-                            </td>
+                            <td class="text-center">
+                            <!-- Botón Ver Detalles -->
+                            <a href="/" 
+                               class="btn btn-sm btn-outline-info" 
+                               title="Ver detalles"
+                               data-bs-toggle="tooltip">
+                                <i class="bi bi-eye-fill"></i>
+                            </a>
+                            
+                            <!-- Botón Editar -->
+                            <a href="{% url 'usuarios:editar_usuario' usuario.id %}" 
+                               class="btn btn-sm btn-outline-primary" 
+                               title="Editar instructor"
+                               data-bs-toggle="tooltip">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            
+                            <!-- Botón Eliminar -->
+                            <a href="{% url 'usuarios:eliminar_usuario' usuario.id %}" 
+                               class="btn btn-sm btn-outline-danger" 
+                               title="Eliminar instructor"
+                               data-bs-toggle="tooltip">
+                                <i class="bi bi-trash-fill"></i>
+                            </a>
+                        </td>
                         </tr>
                         {% empty %}
                         <tr>
